@@ -1,8 +1,15 @@
 {
   description = "Project templates collection";
 
+  inputs = {
+    web-app-template = {
+      url = "github:hiroppy/web-app-template";
+      flake = false;
+    };
+  };
+
   outputs =
-    { self, ... }:
+    { self, web-app-template, ... }:
     {
       templates = {
         flake-devenv = {
@@ -16,6 +23,10 @@
         next-firebase-auth-e2e = {
           path = ./next-firebase-auth-e2e;
           description = "Next.js App Router with Firebase Auth and E2E testing";
+        };
+        web-app = {
+          path = web-app-template;
+          description = "Web app template by hiroppy";
         };
       };
     };
