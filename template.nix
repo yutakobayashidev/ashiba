@@ -12,6 +12,7 @@
     path = ./next-firebase-auth-e2e;
     description = "Next.js App Router with Firebase Auth and E2E testing";
   };
+  moonbit = inputs.moonbit-overlay.templates.default;
   web-app = {
     path = inputs.web-app-template;
     description = "Web app template by hiroppy";

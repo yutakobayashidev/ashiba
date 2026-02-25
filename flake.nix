@@ -3,6 +3,7 @@
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
+    moonbit-overlay.url = "github:moonbit-community/moonbit-overlay";
     web-app-template = {
       url = "github:hiroppy/web-app-template";
       flake = false;
