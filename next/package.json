@@ -38,7 +38,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^15.1.0",
     "@svgr/webpack": "^8.1.0",
-    "@swc-jotai/react-refresh": "^0.3.0",
+    "@swc-jotai/react-refresh": "^0.5.0",
     "@types/node": "^20.17.10",
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.2",
