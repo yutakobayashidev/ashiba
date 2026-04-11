@@ -41,7 +41,7 @@ importers:
         specifier: ^4.10.1
         version: 4.10.1(playwright-core@1.50.1)
       '@eslint/eslintrc':
-        specifier: ^3
+        specifier: 3.2.0
         version: 3.2.0
       '@next/env':
         specifier: 15.2.0
@@ -59,11 +59,11 @@ importers:
         specifier: 19.0.4
         version: 19.0.4(@types/react@19.0.10)
       eslint:
-        specifier: ^9
+        specifier: 9.20.1
         version: 9.20.1(jiti@1.21.7)
       eslint-config-next:
-        specifier: 15.2.0
-        version: 15.2.0(eslint@9.20.1(jiti@1.21.7))(typescript@5.7.3)
+        specifier: 15.5.15
+        version: 15.5.15(eslint@9.20.1(jiti@1.21.7))(typescript@5.7.3)
       firebase-tools:
         specifier: ^13.31.1
         version: 13.31.1(encoding@0.1.13)
@@ -563,8 +563,8 @@ packages:
   '@next/env@15.2.1-canary.0':
     resolution: {integrity: sha512-tyq/nqAyPMYHvf99m4cRwYHzU/XZM9GKYuzz0EJZ8qszDwZ6Kcg+sVev2ro9Yz3p9K1x19Bsc445pAfk3+gcnA==}
 
-  '@next/eslint-plugin-next@15.2.0':
-    resolution: {integrity: sha512-jHFUG2OwmAuOASqq253RAEG/5BYcPHn27p1NoWZDCf4OdvdK0yRYWX92YKkL+Mk2s+GyJrmd/GATlL5b2IySpw==}
+  '@next/eslint-plugin-next@15.5.15':
+    resolution: {integrity: sha512-ExQoBfyKMjAUQ2nuF39ryQsG26H374ZfH13dlOZqf6TaE9ycRbIm+qUbUFCliU4BtQhiqtS7cnGA1yWfPMQ+jA==}
 
   '@next/swc-darwin-arm64@15.2.1-canary.0':
     resolution: {integrity: sha512-tIrSJvNuNd5xT+3n3mEVAhQqL5VIsZNEt8YOC25Uya014/grb65UPBsWZL5U6Xs8341KZI1Y1AMfeSb4/OyXaQ==}
@@ -1054,6 +1054,7 @@ packages:
   basic-ftp@5.0.5:
     resolution: {integrity: sha512-4Bcg1P8xhUuqcii/S0Z9wiHIrQVPMermM1any+MX5GeGD7faD3/msQUDGLol9wOcz4/jbg/WJnGqoJF6LiBdtg==}
     engines: {node: '>=10.0.0'}
+    deprecated: Security vulnerability fixed in 5.2.1, please upgrade
 
   bignumber.js@9.1.2:
     resolution: {integrity: sha512-2/mKyZH9K85bzOEfhXDBFZTGd1CTs+5IHpeFQo9luiBG7hghdC851Pj2WAhb6E3R6b9tZj/XKhbg4fum+Kepug==}
@@ -1567,8 +1568,8 @@ packages:
     engines: {node: '>=6.0'}
     hasBin: true
 
-  eslint-config-next@15.2.0:
-    resolution: {integrity: sha512-LkG0KKpinAoNPk2HXSx0fImFb/hQ6RnhSxTkpJFTkQ0SmnzsbRsjjN95WC/mDY34nKOenpptYEVvfkCR/h+VjA==}
+  eslint-config-next@15.5.15:
+    resolution: {integrity: sha512-mI5KIONOIosjF3jK2z9a8fY2LePNeW5C4lRJ+XZoJHAKkwx2MQjMPQ2/kL7tsMRPcQPZc/UBtCfqxElluL1CBg==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0 || ^9.0.0
       typescript: '>=3.3.1'
@@ -1938,6 +1939,7 @@ packages:
 
   glob@10.4.5:
     resolution: {integrity: sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   global-dirs@3.0.1:
@@ -2365,6 +2367,7 @@ packages:
 
   json-ptr@3.1.1:
     resolution: {integrity: sha512-SiSJQ805W1sDUCD1+/t1/1BIrveq2Fe9HJqENxZmMCILmrPI7WhS/pePpIOx85v6/H2z1Vy7AI08GV2TzfXocg==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   json-schema-traverse@0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
@@ -3571,6 +3574,7 @@ packages:
   tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
     engines: {node: '>=10'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   tcp-port-used@1.0.2:
     resolution: {integrity: sha512-l7ar8lLUD3XS1V2lfoJlCBaeoaWo/2xfYt81hM7VlvR4RrMVFqfmzfhLVk40hAb368uitje5gPtBRL1m/DGvLA==}
@@ -4528,7 +4532,7 @@ snapshots:
 
   '@next/env@15.2.1-canary.0': {}
 
-  '@next/eslint-plugin-next@15.2.0':
+  '@next/eslint-plugin-next@15.5.15':
     dependencies:
       fast-glob: 3.3.1
 
@@ -5636,9 +5640,9 @@ snapshots:
     optionalDependencies:
       source-map: 0.6.1
 
-  eslint-config-next@15.2.0(eslint@9.20.1(jiti@1.21.7))(typescript@5.7.3):
+  eslint-config-next@15.5.15(eslint@9.20.1(jiti@1.21.7))(typescript@5.7.3):
     dependencies:
-      '@next/eslint-plugin-next': 15.2.0
+      '@next/eslint-plugin-next': 15.5.15
       '@rushstack/eslint-patch': 1.10.5
       '@typescript-eslint/eslint-plugin': 8.24.1(@typescript-eslint/parser@8.24.1(eslint@9.20.1(jiti@1.21.7))(typescript@5.7.3))(eslint@9.20.1(jiti@1.21.7))(typescript@5.7.3)
       '@typescript-eslint/parser': 8.24.1(eslint@9.20.1(jiti@1.21.7))(typescript@5.7.3)
