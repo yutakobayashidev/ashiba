@@ -94,7 +94,10 @@
                 url = "https://mcp.mdn.mozilla.net/";
               };
             };
-            flavors.claude-code.enable = true;
+            flavors = {
+              "claude-code".enable = true;
+              opencode.enable = true;
+            };
           };
 
           devShells.default = pkgs.mkShellNoCC {
