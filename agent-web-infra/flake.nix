@@ -160,7 +160,7 @@
               inframap
               nodejs
               pnpm
-              terraform
+              (terraform.withPlugins (plugins: [ plugins.hashicorp_google ]))
               tflint
               trivy
               inputs.actrun.packages.${system}.default
