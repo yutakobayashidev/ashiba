@@ -174,6 +174,7 @@
               + config.pre-commit.installationScript;
             packages = with pkgs; [
               checkov
+              conftest
               google-cloud-sdk
               inframap
               nodejs
