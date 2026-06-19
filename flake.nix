@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     moonbit-overlay.url = "github:moonbit-community/moonbit-overlay";
     web-app-template = {
       url = "github:hiroppy/web-app-template";
@@ -21,11 +25,20 @@
         "x86_64-linux"
       ];
 
+      imports = [ inputs.git-hooks.flakeModule ];
+
       perSystem =
-        { pkgs, ... }:
+        { config, pkgs, ... }:
         {
+          pre-commit = {
+            check.enable = false;
+            settings.hooks = {
+              convco.enable = true;
+            };
+          };
+
           devShells.default = pkgs.mkShellNoCC {
-            packages = with pkgs; [ convco ];
+            shellHook = config.pre-commit.installationScript;
           };
         };
 
