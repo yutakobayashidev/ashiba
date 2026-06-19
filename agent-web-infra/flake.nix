@@ -45,6 +45,10 @@
       url = "github:natsukium/mcp-servers-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -58,7 +62,10 @@
       ];
     in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [ inputs.mcp-servers-nix.flakeModule ];
+      imports = [
+        inputs.git-hooks.flakeModule
+        inputs.mcp-servers-nix.flakeModule
+      ];
       systems = supportedSystems;
 
       flake = {
@@ -97,6 +104,13 @@
             flavors = {
               "claude-code".enable = true;
               opencode.enable = true;
+            };
+          };
+
+          pre-commit = {
+            check.enable = false;
+            settings.hooks = {
+              convco.enable = true;
             };
           };
 
@@ -156,13 +170,15 @@
               + agentLib.mkShellHook {
                 inherit pkgs bundle;
                 targets = localTargets;
-              };
+              }
+              + config.pre-commit.installationScript;
             packages = with pkgs; [
               checkov
               google-cloud-sdk
               inframap
               nodejs
               pnpm
+              semgrep
               (terraform.withPlugins (plugins: [ plugins.hashicorp_google ]))
               tflint
               trivy
