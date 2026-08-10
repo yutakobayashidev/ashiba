@@ -1,7 +1,7 @@
 {
   "name": "next-app-router-firebase-auth-e2e",
   "version": "0.1.0",
-  "packageManager": "pnpm@9.14.1",
+  "packageManager": "pnpm@9.15.9",
   "private": true,
   "scripts": {
     "setup": "corepack enable pnpm",
