@@ -4,6 +4,9 @@ Linux x86_64 用の開発環境テンプレート。Android Studio を使わず�
 Compose アプリのビルド、端末操作、APK解析を Coding Agent から実行できます。
 アプリのソースは含みません。既存のアプリを置くか、公式 Android CLI で生成します。
 
+flake-partsを使い、SDK・パッケージ・用途別shell・Skills配布の設定を
+`flake.nix` にまとめています。
+
 ## 開始
 
 ```bash
@@ -24,8 +27,8 @@ mobile create --help
 この生成処理はオンラインで、取得したテンプレート自体はNixで固定されません。
 生成したコードとWrapperをコミットし、ビルドにはNixのSDKを使います。
 生成直後は `local.properties` の `sdk.dir` を `$ANDROID_HOME` の値へ変更します。
-公式テンプレートのSDK要求が初期値と異なる場合は `nix/settings.nix` を合わせます。
-`jvmToolchain(17)` を使うアプリでは、`nix/shell.nix` のJDKを17に揃えるか、
+公式テンプレートのSDK要求が初期値と異なる場合は `flake.nix` を合わせます。
+`jvmToolchain(17)` を使うアプリでは、`flake.nix` のJDKを17に揃えるか、
 アプリ側で使用するtoolchainを21に変更してください。
 Gradle Wrapper、Kotlin、AGP、Compose のバージョンはアプリ側で管理します。
 
@@ -40,7 +43,7 @@ Gradle Wrapper、Kotlin、AGP、Compose のバージョンはアプリ側で管�
 
 ## SDK とホスト
 
-`nix/settings.nix` で API / Build Tools のバージョンを変更します。
+`flake.nix` で API / Build Tools のバージョンを変更します。
 初期値は API 36 / Build Tools 36.0.0。アプリの `compileSdk` と
 `buildToolsVersion` に合わせてください。SDK は Nix Store 内の読み取り専用です。
 `android sdk install` や `sdkmanager` で変更せず、Nix の設定を変更します。
@@ -48,7 +51,7 @@ NixOS 用 `aapt2` の指定は shell が `GRADLE_OPTS` に追加します。
 既存の `local.properties` の `sdk.dir` が別の SDK を指す場合は修正してください。
 
 実機のみ、またはビルド専用CIでは `emulator = false` にするとイメージ取得を省けます。
-NDK / CMake は初期状態では含めません。必要なプロジェクトでは `nix/shell.nix` の
+NDK / CMake は初期状態では含めません。必要なプロジェクトでは `flake.nix` の
 SDK composition に、アプリが指定するバージョンを追加します。
 
 KVMとUSB権限はホスト側の設定です。NixOSでは、例えば以下を設定して再ログインします。
@@ -188,12 +191,11 @@ docker run --rm -p 127.0.0.1:8000:8000 "$MOBSF_IMAGE"
 
 ## 構成の拡張と検証
 
-`nix/shell.nix` は共通設定に解析ツールなどを追加する関数です。追加ツールは
+`flake.nix` の `mkMobileShell` で共通設定に解析ツールなどを追加します。追加ツールは
 `mkMobileShell { extraPackages = [ pkgs.nodejs ]; }` のように組み合わせられます。
 複数の完成済み `flake.nix` をコピーしてマージする必要はありません。
 
-`nix flake check` はシェル評価、ShellCheck、端末指定・タイムアウト・既存データ
-保護のテストを実行します。KVMを使う起動試験や実アプリのビルドは別途必要です。
+`nix flake check` はシェル評価、ShellCheck、Skillsの同期確認を実行します。KVMを使う起動試験や実アプリのビルドは別途必要です。
 
 参考: [Android CLI](https://developer.android.com/tools/agents/android-cli)、
 [Nixpkgs Android](https://nixos.org/manual/nixpkgs/unstable/#android)、

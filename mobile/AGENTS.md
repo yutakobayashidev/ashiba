@@ -7,7 +7,7 @@ are installed by agent-skills-nix in project-local skill directories on shell en
 ## Development
 
 Use the project's Gradle Wrapper and existing Kotlin/Compose conventions.
-The SDK is immutable: change `nix/settings.nix` and re-enter the shell to add SDK
+The SDK is immutable: change `flake.nix` and re-enter the shell to add SDK
 components. Update Android CLI via the flake lock, not `android update`.
 Use `mobile android` to select the pinned SDK. For scaffolding use `mobile create`,
 which keeps downloaded templates in a separate writable cache. Skills may suggest SDK installation

@@ -4,6 +4,9 @@
 Linux x86_64とApple Silicon macOSを対象にします。`pcb`・`full`はLinux限定です。
 固定中のnixpkgsのKiCadがDarwinでbroken指定のため、macOSには公開しません。
 
+flake-partsを使い、SDK・パッケージ・用途別shell・Skills配布の設定を
+`flake.nix` にまとめています。
+
 ```bash
 nix develop                   # Arduino CLI + PlatformIO
 nix develop .#electronics     # 上記 + Arduino IDE
@@ -19,13 +22,13 @@ Arduinoの `sketch.yaml` または PlatformIOの `platformio.ini` です。
 
 ## 組み合わせ
 
-`nix/profiles.nix` に使う機能を列挙します。例えば筐体付きの電子工作なら：
+`flake.nix` に使う機能を列挙します。例えば筐体付きの電子工作なら：
 
 ```nix
 enclosure = [ "firmware" "cad" ];
 ```
 
-`nix develop .#enclosure` で入れます。機能ごとのパッケージは `nix/shell.nix`
+`nix develop .#enclosure` で入れます。機能ごとのパッケージは `flake.nix`
 にあります。LinuxのFreeCADは、元のdotnixと同じstable入力から取得します。
 KiCadも元の `stable = true` を保持しています。
 

@@ -53,7 +53,7 @@ doctor)
   exit "$failed"
   ;;
 avd-create)
-  [[ $MOBILE_EMULATOR == 1 ]] || fail 'Enable emulator in nix/settings.nix first.'
+  [[ $MOBILE_EMULATOR == 1 ]] || fail 'Enable emulator in flake.nix first.'
   [[ $# == 0 ]] || fail 'Usage: mobile avd-create'
   if [[ -e "$ANDROID_AVD_HOME/$MOBILE_AVD.ini" || -e "$ANDROID_AVD_HOME/$MOBILE_AVD.avd" ]]; then
     fail "AVD already exists: $MOBILE_AVD (kept unchanged)."
@@ -62,7 +62,7 @@ avd-create)
   printf 'no\n' | avdmanager create avd --name "$MOBILE_AVD" --package "$MOBILE_IMAGE"
   ;;
 avd-start)
-  [[ $MOBILE_EMULATOR == 1 ]] || fail 'Enable emulator in nix/settings.nix first.'
+  [[ $MOBILE_EMULATOR == 1 ]] || fail 'Enable emulator in flake.nix first.'
   [[ -e "$ANDROID_AVD_HOME/$MOBILE_AVD.ini" ]] || fail 'Run mobile avd-create first.'
   [[ -r /dev/kvm && -w /dev/kvm ]] || fail '/dev/kvm unavailable; run mobile doctor.'
   exec emulator -avd "$MOBILE_AVD" -port "$MOBILE_PORT" -no-snapshot "$@"

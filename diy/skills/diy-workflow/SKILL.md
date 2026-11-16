@@ -6,7 +6,7 @@ description: Develop firmware, CAD models, PCB designs, and print exports in thi
 # DIY project workflow
 
 Read the project README for available shells and host setup. Enter the matching
-shell from the project root; mix features in `nix/profiles.nix` when a task spans
+shell from the project root; mix features in `flake.nix` when a task spans
 firmware and mechanical or PCB design. Keep native sources in version control
 and generated outputs under `build/` or `exports/`.
 
