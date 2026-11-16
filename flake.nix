@@ -66,6 +66,7 @@
               value = import (./modules + "/${name}.nix") { inherit inputs; };
             })
             [
+              "pwn"
               "android"
               "reverse-android"
               "reverse-native"

@@ -1,5 +1,9 @@
 { inputs }:
 {
+  pwn = {
+    path = ./pwn;
+    description = "Native CTF debugging and optional Ghidra CLI with project-local skills";
+  };
   android = {
     path = ./android;
     description = "Linux Android development, Maestro E2E tests, and APK analysis with project-local agent skills";

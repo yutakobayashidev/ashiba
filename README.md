@@ -12,6 +12,7 @@ nix flake init -t github:yutakobayashidev/ashiba#<name>
 
 | Name | Description |
 |---|---|
+| `pwn` | [Native CTF debugging, Python solvers, and optional Ghidra CLI](pwn/README.md) |
 | `android` | [Android SDK, Maestro, APK analysis, and agent skills (Linux x86_64)](android/README.md) |
 | `firmware` | [Arduino and PlatformIO firmware development](firmware/README.md) |
 | `cad` | [Mechanical design with FreeCAD and OpenSCAD](cad/README.md) |
@@ -29,7 +30,7 @@ For language-specific flake templates, see also [the-nix-way/dev-templates](http
 
 ## Composable analysis environments
 
-Import `flakeModules.android`, `flakeModules.reverse-android`, or
+Import `flakeModules.pwn`, `flakeModules.android`, `flakeModules.reverse-android`, or
 `flakeModules.reverse-native` into a flake-parts project. They contribute tools
 to `perSystem.devshells.default` and collect skills into one synchronization hook.
 The Android template provides development, APK analysis, and combined native

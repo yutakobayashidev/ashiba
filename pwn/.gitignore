@@ -1,0 +1,11 @@
+.direnv/
+analysis/runtime/
+analysis/projects/
+.agents/skills/
+.codex/skills/
+.claude/skills/
+.opencode/skills/
+__pycache__/
+.cache/
+core
+core.*
