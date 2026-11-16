@@ -1,0 +1,7 @@
+.direnv/
+build/
+exports/
+.agents/skills/
+.codex/skills/
+.claude/skills/
+.opencode/skills/

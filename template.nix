@@ -1,5 +1,29 @@
 { inputs }:
 {
+  android = {
+    path = ./android;
+    description = "Linux Android development, Maestro E2E tests, and APK analysis with project-local agent skills";
+  };
+  firmware = {
+    path = ./firmware;
+    description = "Arduino and PlatformIO firmware development with project-local agent skills";
+  };
+  cad = {
+    path = ./cad;
+    description = "Mechanical design with FreeCAD and OpenSCAD with project-local agent skills";
+  };
+  pcb = {
+    path = ./pcb;
+    description = "PCB design and validation with KiCad with project-local agent skills";
+  };
+  printing = {
+    path = ./printing;
+    description = "3D print preparation with PrusaSlicer with project-local agent skills";
+  };
+  reverse-android = {
+    path = ./reverse-android;
+    description = "JADX, Apktool, Frida, and ADB for Android reverse engineering";
+  };
   reverse-native = {
     path = ./reverse-native;
     description = "Ghidra CLI and matching agent skill for native reverse engineering";

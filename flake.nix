@@ -39,6 +39,13 @@
       perSystem =
         { config, pkgs, ... }:
         {
+          apps.skills-sources-lock = {
+            type = "app";
+            meta.description = "Update the pinned official Android skills";
+            program = "${
+              inputs.agent-skills.lib.agent-skills.mkSourceLockProgram { inherit pkgs; }
+            }/bin/skills-sources-lock";
+          };
           pre-commit = {
             check.enable = false;
             settings.hooks = {
@@ -52,7 +59,18 @@
         };
 
       flake = {
-        flakeModules.reverse-native = import ./modules/reverse-native.nix { inherit inputs; };
+        flakeModules = builtins.listToAttrs (
+          map
+            (name: {
+              inherit name;
+              value = import (./modules + "/${name}.nix") { inherit inputs; };
+            })
+            [
+              "android"
+              "reverse-android"
+              "reverse-native"
+            ]
+        );
         templates = import ./template.nix { inherit inputs; };
       };
     };
