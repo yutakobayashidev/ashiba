@@ -1,5 +1,13 @@
 { inputs }:
 {
+  mobile = {
+    path = ./mobile;
+    description = "Linux Android development, Maestro E2E tests, and APK analysis with project-local agent skills";
+  };
+  diy = {
+    path = ./diy;
+    description = "Composable firmware, CAD, PCB and 3D printing environments with project-local agent skills";
+  };
   flake-devenv = {
     path = ./flake-devenv;
     description = "Nix flake with devenv, treefmt, and git-hooks";
