@@ -33,11 +33,11 @@
         "web-app-template": "web-app-template"
       },
       "locked": {
-        "lastModified": 1794850488,
-        "narHash": "sha256-zWatmEiVJtx4WQqiiRF7G/sf+ioIGvMq1zMKPPXMiuM=",
+        "lastModified": 1794852114,
+        "narHash": "sha256-fZdutVKHUtv7OwBY+7CK8xWbOJ4DvS87QPbX6Zj7DB0=",
         "owner": "yutakobayashidev",
         "repo": "ashiba",
-        "rev": "d95a0acc553b12625626fe36884f72497ea1a169",
+        "rev": "6d01cd1089917bb2107d2588c9beef825daf2424",
         "type": "github"
       },
       "original": {
