@@ -86,7 +86,7 @@
                 inherit bundle targets;
               };
             };
-          mkMobileShell =
+          mkAndroidShell =
             {
               analysis ? false,
               nativeAnalysis ? false,
@@ -107,13 +107,13 @@
                 abiVersions = [ "x86_64" ];
               };
               sdk = "${composition.androidsdk}/libexec/android-sdk";
-              mobile = pkgs.writeShellApplication {
-                name = "mobile";
+              android-dev = pkgs.writeShellApplication {
+                name = "android-dev";
                 runtimeInputs = [
                   pkgs.coreutils
                   pkgs.android-cli
                 ];
-                text = builtins.readFile ./mobile.sh;
+                text = builtins.readFile ./android-dev.sh;
               };
             in
             pkgs.mkShell {
@@ -123,7 +123,7 @@
                 composition.androidsdk
                 pkgs.jdk21
                 pkgs.git
-                mobile
+                android-dev
               ]
               ++ lib.optionals analysis [
                 pkgs.jadx
@@ -137,19 +137,21 @@
               JAVA_HOME = pkgs.jdk21.home;
               ANDROID_HOME = sdk;
               ANDROID_SDK_ROOT = sdk;
-              MOBILE_IMAGE = "system-images;android-${settings.platformVersion};${imageType};x86_64";
-              MOBILE_AVD = "mobile-${if analysis then "analysis" else "dev"}-${settings.platformVersion}";
-              MOBILE_PORT = if analysis then "5556" else "5554";
-              MOBILE_EMULATOR = if settings.emulator then "1" else "0";
-              MOBILE_ANALYSIS = if analysis then "1" else "0";
+              ANDROID_DEV_IMAGE = "system-images;android-${settings.platformVersion};${imageType};x86_64";
+              ANDROID_DEV_AVD = "android-dev-${
+                if analysis then "analysis" else "dev"
+              }-${settings.platformVersion}";
+              ANDROID_DEV_PORT = if analysis then "5556" else "5554";
+              ANDROID_DEV_EMULATOR = if settings.emulator then "1" else "0";
+              ANDROID_DEV_ANALYSIS = if analysis then "1" else "0";
 
               shellHook = ''
                 # cmdline-tools also ships an `android` bootstrapper; prefer the pinned CLI.
                 export PATH="${pkgs.android-cli}/bin:$PATH"
-                export MOBILE_WORKSPACE="$PWD"
-                export ANDROID_USER_HOME="$MOBILE_WORKSPACE/.mobile/android"
+                export ANDROID_DEV_WORKSPACE="$PWD"
+                export ANDROID_USER_HOME="$ANDROID_DEV_WORKSPACE/.android-dev/android"
                 export ANDROID_AVD_HOME="$ANDROID_USER_HOME/avd"
-                export GRADLE_USER_HOME="$MOBILE_WORKSPACE/.mobile/gradle"
+                export GRADLE_USER_HOME="$ANDROID_DEV_WORKSPACE/.android-dev/gradle"
                 export GRADLE_OPTS="''${GRADLE_OPTS:+$GRADLE_OPTS }-Dorg.gradle.project.android.aapt2FromMavenOverride=${sdk}/build-tools/${settings.buildToolsVersion}/aapt2"
                 mkdir -p "$ANDROID_AVD_HOME" "$GRADLE_USER_HOME"
                 ${skills.shellHook}
@@ -159,9 +161,9 @@
         {
           _module.args.pkgs = pkgs;
           devShells = {
-            default = mkMobileShell { };
-            analysis = mkMobileShell { analysis = true; };
-            full = mkMobileShell {
+            default = mkAndroidShell { };
+            analysis = mkAndroidShell { analysis = true; };
+            full = mkAndroidShell {
               analysis = true;
               nativeAnalysis = true;
             };
@@ -174,7 +176,7 @@
             program = "${agentLib.mkSourceLockProgram { inherit pkgs; }}/bin/skills-sources-lock";
           };
           checks = {
-            skills = pkgs.runCommand "mobile-skills-check" { } ''
+            skills = pkgs.runCommand "android-dev-skills-check" { } ''
               mkdir project
               cd project
               ${skills.shellHook}
@@ -185,7 +187,7 @@
               touch "$out"
             '';
             scripts =
-              pkgs.runCommand "mobile-script-checks"
+              pkgs.runCommand "android-dev-script-checks"
                 {
                   nativeBuildInputs = [
                     pkgs.shellcheck
@@ -193,7 +195,7 @@
                   ];
                 }
                 ''
-                  shellcheck ${./mobile.sh}
+                  shellcheck ${./android-dev.sh}
                   touch "$out"
                 '';
           };

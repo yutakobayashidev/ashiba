@@ -1,10 +1,8 @@
 .direnv/
-.mobile/
-.gradle/
-**/build/
-local.properties
-analysis/
+build/
+exports/
 .agents/skills/
 .codex/skills/
 .claude/skills/
 .opencode/skills/
+*.FCStd1

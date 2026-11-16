@@ -1,4 +1,4 @@
-# Android mobile development
+# Android development
 
 Linux x86_64 用の開発環境テンプレート。Android Studio を使わずに、Kotlin /
 Compose アプリのビルド、端末操作、APK解析を Coding Agent から実行できます。
@@ -10,9 +10,10 @@ flake-partsを使い、SDK・パッケージ・用途別shell・Skills配布の�
 ## 開始
 
 ```bash
+nix flake init -t github:yutakobayashidev/ashiba#android
 nix develop
-mobile doctor
-mobile create --help
+android-dev doctor
+android-dev create --help
 ```
 
 この flake は Android SDK ライセンスを `android_sdk.accept_license = true`
@@ -20,10 +21,10 @@ mobile create --help
 実行してください。初回は SDK とシステムイメージの取得に数GB必要です。
 `flake.lock` と `registry/sources.lock.json` をプロジェクトで追跡してください。
 
-既存アプリではアプリのディレクトリで `mobile gradle assembleDebug` を実行します。
-新規アプリは `mobile create --help` の現在の構文に従い、サブディレクトリへ
-作成します。例: `mobile create empty-activity --name="My App" --output=./app-project`。
-生成時だけテンプレート取得用の書き込み可能な `.mobile/bootstrap-sdk` を使います。
+既存アプリではアプリのディレクトリで `android-dev gradle assembleDebug` を実行します。
+新規アプリは `android-dev create --help` の現在の構文に従い、サブディレクトリへ
+作成します。例: `android-dev create empty-activity --name="My App" --output=./app-project`。
+生成時だけテンプレート取得用の書き込み可能な `.android-dev/bootstrap-sdk` を使います。
 この生成処理はオンラインで、取得したテンプレート自体はNixで固定されません。
 生成したコードとWrapperをコミットし、ビルドにはNixのSDKを使います。
 生成直後は `local.properties` の `sdk.dir` を `$ANDROID_HOME` の値へ変更します。
@@ -63,37 +64,37 @@ KVMとUSB権限はホスト側の設定です。NixOSでは、例えば以下を
 }
 ```
 
-ユーザー名は置き換えてください。`mobile doctor` は `/dev/kvm` と
+ユーザー名は置き換えてください。`android-dev doctor` は `/dev/kvm` と
 `emulator -accel-check` を検査します。VM内ではネストした仮想化が必要です。
 非NixOSのLinuxでは、GPUドライバとの互換性をホストごとに確認してください。
 
 ## AVD と開発ループ
 
 ```bash
-mobile avd-create
-mobile avd-start
+android-dev avd-create
+android-dev avd-start
 ```
 
 別ターミナルで同じプロジェクトの同じ shell に入り、続けます。
 
 ```bash
-mobile wait 180
-mobile gradle assembleDebug testDebugUnitTest lintDebug
+android-dev wait 180
+android-dev gradle assembleDebug testDebugUnitTest lintDebug
 adb -s emulator-5554 install -r app/build/outputs/apk/debug/app-debug.apk
-mobile android screen --help
-mobile android input --help
+android-dev android screen --help
+android-dev android input --help
 adb -s emulator-5554 logcat
 ```
 
 Gradleタスク名・APKパスはアプリに合わせて変更してください。Android CLIも、
 複数端末が接続されている場合は各コマンドのヘルプに従って対象端末を指定します。
-ヘッドレス起動は `mobile avd-start -no-window -no-audio -gpu swiftshader_indirect`。
-`mobile avd-start` はフォアグラウンドで起動し、スナップショットを読み書きしません。
-ユーザーデータは保持します。`mobile wait` は期限を過ぎると終了コード124で失敗します。
+ヘッドレス起動は `android-dev avd-start -no-window -no-audio -gpu swiftshader_indirect`。
+`android-dev avd-start` はフォアグラウンドで起動し、スナップショットを読み書きしません。
+ユーザーデータは保持します。`android-dev wait` は期限を過ぎると終了コード124で失敗します。
 
-AVD / Gradleキャッシュは shell に入ったディレクトリの `.mobile/` に保存します。
+AVD / Gradleキャッシュは shell に入ったディレクトリの `.android-dev/` に保存します。
 既存AVDを `avd-create` が上書きすることはありません。SDK更新後に古いStoreパスを
-参照する場合は、必要なデータを退避してから `avdmanager delete avd -n "$MOBILE_AVD"`
+参照する場合は、必要なデータを退避してから `avdmanager delete avd -n "$ANDROID_DEV_AVD"`
 で削除し、再作成してください。別ターミナルも同じテンプレートルートから入ります。
 
 ## MaestroによるE2Eテスト
@@ -103,21 +104,21 @@ YAMLのFlowを実行します。Android CLIは端末操作や調査、Maestroは
 UIテストに使えます。
 
 ```bash
-mobile wait
+android-dev wait
 adb -s emulator-5554 install -r app/build/outputs/apk/debug/app-debug.apk
-mkdir -p .mobile/reports
-mobile test -e APP_ID=com.example.app -e READY_TEXT="Hello Android!" \
-  --format JUNIT --output .mobile/reports/maestro.xml \
-  --debug-output .mobile/maestro .maestro/smoke.yaml
+mkdir -p .android-dev/reports
+android-dev test -e APP_ID=com.example.app -e READY_TEXT="Hello Android!" \
+  --format JUNIT --output .android-dev/reports/maestro.xml \
+  --debug-output .android-dev/maestro .maestro/smoke.yaml
 ```
 
 `APP_ID`はアプリのapplicationId、`READY_TEXT`は起動後に表示される実際の文字列へ
 変更してください。付属のsmoke Flowは起動と表示確認を行い、データの初期化はしません。
 アプリに合わせてタップ・入力・表示検証を追加し、`.maestro/` をGit管理します。
-出力先の `.mobile/` はGit管理しません。
+出力先の `.android-dev/` はGit管理しません。
 
-`mobile test` は現在のshellのAVDを明示的に指定します。実機の場合は
-`MOBILE_DEVICE=<adb-serial> mobile test ...` で指定します。
+`android-dev test` は現在のshellのAVDを明示的に指定します。実機の場合は
+`ANDROID_DEV_DEVICE=<adb-serial> android-dev test ...` で指定します。
 直接 `maestro --device emulator-5554 test ...` と実行することもできます。
 端末の起動・APKのインストールはテストコマンドでは自動実行しません。
 
@@ -146,12 +147,12 @@ nix develop
 
 ```bash
 nix develop .#analysis
-mobile analyze ./sample.apk ./report
-mobile avd-create
-mobile avd-start
+android-dev analyze ./sample.apk ./report
+android-dev avd-create
+android-dev avd-start
 ```
 
-`mobile analyze` は新規出力先にSHA-256・元ファイルパス・JADXとApktoolの出力を
+`android-dev analyze` は新規出力先にSHA-256・元ファイルパス・JADXとApktoolの出力を
 保存します。元APKは変更せず、既存出力先には書き込みません。ツールが失敗した場合は
 途中の成果物を残して非ゼロ終了します。出力先はGitに追加しないでください。
 入手元・アプリバージョン・解析メモは別途記録します。
@@ -159,7 +160,7 @@ mobile avd-start
 動的解析は別ターミナルの analysis shell から行います。
 
 ```bash
-mobile wait
+android-dev wait
 adb -s emulator-5556 root
 adb -s emulator-5556 shell getprop ro.product.cpu.abi
 frida --version
@@ -191,8 +192,8 @@ docker run --rm -p 127.0.0.1:8000:8000 "$MOBSF_IMAGE"
 
 ## 構成の拡張と検証
 
-`flake.nix` の `mkMobileShell` で共通設定に解析ツールなどを追加します。追加ツールは
-`mkMobileShell { extraPackages = [ pkgs.nodejs ]; }` のように組み合わせられます。
+`flake.nix` の `mkAndroidShell` で共通設定に解析ツールなどを追加します。追加ツールは
+`mkAndroidShell { extraPackages = [ pkgs.nodejs ]; }` のように組み合わせられます。
 複数の完成済み `flake.nix` をコピーしてマージする必要はありません。
 
 `nix flake check` はシェル評価、ShellCheck、Skillsの同期確認を実行します。KVMを使う起動試験や実アプリのビルドは別途必要です。

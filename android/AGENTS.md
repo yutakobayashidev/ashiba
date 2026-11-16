@@ -9,10 +9,10 @@ are installed by agent-skills-nix in project-local skill directories on shell en
 Use the project's Gradle Wrapper and existing Kotlin/Compose conventions.
 The SDK is immutable: change `flake.nix` and re-enter the shell to add SDK
 components. Update Android CLI via the flake lock, not `android update`.
-Use `mobile android` to select the pinned SDK. For scaffolding use `mobile create`,
+Use `android-dev android` to select the pinned SDK. For scaffolding use `android-dev create`,
 which keeps downloaded templates in a separate writable cache. Skills may suggest SDK installation
 or `android init`; use the Nix configuration and source registry for those steps.
-Use `mobile test` for Maestro YAML flows under `.maestro/`; set `MOBILE_DEVICE`
+Use `android-dev test` for Maestro YAML flows under `.maestro/`; set `ANDROID_DEV_DEVICE`
 when targeting a physical device. Install the APK before running flows.
 Run unit tests and lint after code changes; verify UI changes on the development
 AVD. Report actual results and explicitly identify checks that could not run.

@@ -12,8 +12,11 @@ nix flake init -t github:yutakobayashidev/ashiba#<name>
 
 | Name | Description |
 |---|---|
-| `mobile` | [Android SDK, Maestro, APK analysis, and agent skills (Linux x86_64)](mobile/README.md) |
-| `diy` | [Firmware, CAD, PCB design, printing, and agent skills (Linux / Apple Silicon macOS)](diy/README.md) |
+| `android` | [Android SDK, Maestro, APK analysis, and agent skills (Linux x86_64)](android/README.md) |
+| `firmware` | [Arduino and PlatformIO firmware development](firmware/README.md) |
+| `cad` | [Mechanical design with FreeCAD and OpenSCAD](cad/README.md) |
+| `pcb` | [PCB design and validation with KiCad](pcb/README.md) |
+| `printing` | [3D print preparation with PrusaSlicer](printing/README.md) |
 | `flake-devenv` | Nix flake with devenv, treefmt, and git-hooks |
 | `next` | Next.js with Tailwind CSS and shadcn/ui |
 | `next-firebase-auth-e2e` | Next.js App Router with Firebase Auth and E2E testing |
