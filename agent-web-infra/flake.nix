@@ -184,6 +184,7 @@
               tflint
               trivy
               inputs.actrun.packages.${system}.default
+              inputs.nur-packages.packages.${system}.gctx
               inputs.nur-packages.packages.${system}.pike
               self.formatter.${system}
             ];
