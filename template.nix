@@ -20,6 +20,10 @@
     path = ./printing;
     description = "3D print preparation with PrusaSlicer with project-local agent skills";
   };
+  reverse-android = {
+    path = ./reverse-android;
+    description = "JADX, Apktool, Frida, and ADB for Android reverse engineering";
+  };
   reverse-native = {
     path = ./reverse-native;
     description = "Ghidra CLI and matching agent skill for native reverse engineering";

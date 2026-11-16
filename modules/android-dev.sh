@@ -104,7 +104,7 @@ analyze)
   sha256sum -- "$apk" >"$output/SHA256SUMS"
   printf '%s\n' "$apk" >"$output/source.txt"
   jadx -d "$output/jadx" "$apk"
-  apktool d "$apk" -o "$output/apktool"
+  apktool d "$apk" -p "$output/framework" -o "$output/apktool"
   ;;
 *)
   usage >&2

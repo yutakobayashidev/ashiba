@@ -39,8 +39,12 @@ imports = [ inputs.ashiba.flakeModules.reverse-native ];
 同じ `devshells.default` の設定へ移してください。
 
 公式Skillを `.agents/skills`・`.codex/skills`・`.claude/skills`・`.opencode/skills` へ配備します。
-既に別のSkills同期処理があるプロジェクトでは、同じ配備先への別々の同期を重ねず、
-選択をまとめて1回同期するよう統合してください。
+Android開発・APK解析moduleを一緒にimportすると、Skillをまとめて1回同期します。
+独自Skillは `perSystem.ashiba.skills.sources` と `selection` に追加してください。
+別のSkills同期処理がある場合も、この選択へまとめます。
+
+CTFでは、このmoduleと `perSystem.devshells.default.packages = [ pkgs.gdb ];`
+を組み合わせられます。Androidの `.so` 解析には `reverse-android` moduleも追加します。
 
 ## 検証
 
