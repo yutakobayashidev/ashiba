@@ -20,6 +20,10 @@
     path = ./printing;
     description = "3D print preparation with PrusaSlicer with project-local agent skills";
   };
+  reverse-native = {
+    path = ./reverse-native;
+    description = "Ghidra CLI and matching agent skill for native reverse engineering";
+  };
   flake-devenv = {
     path = ./flake-devenv;
     description = "Nix flake with devenv, treefmt, and git-hooks";
