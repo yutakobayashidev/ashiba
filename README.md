@@ -12,6 +12,7 @@ nix flake init -t github:yutakobayashidev/ashiba#<name>
 
 | Name | Description |
 |---|---|
+| `reverse-native` | [Ghidra CLI and matching agent skill](reverse-native/README.md) |
 | `flake-devenv` | Nix flake with devenv, treefmt, and git-hooks |
 | `next` | Next.js with Tailwind CSS and shadcn/ui |
 | `next-firebase-auth-e2e` | Next.js App Router with Firebase Auth and E2E testing |

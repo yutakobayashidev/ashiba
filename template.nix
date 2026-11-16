@@ -1,5 +1,9 @@
 { inputs }:
 {
+  reverse-native = {
+    path = ./reverse-native;
+    description = "Ghidra CLI and matching agent skill for native reverse engineering";
+  };
   flake-devenv = {
     path = ./flake-devenv;
     description = "Nix flake with devenv, treefmt, and git-hooks";

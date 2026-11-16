@@ -1,0 +1,7 @@
+.direnv/
+analysis/runtime/
+analysis/projects/
+.agents/skills/
+.codex/skills/
+.claude/skills/
+.opencode/skills/
